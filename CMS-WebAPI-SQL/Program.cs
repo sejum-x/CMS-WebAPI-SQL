@@ -1,4 +1,5 @@
 using CMS_WebAPI_SQL.Business;
+using CMS_WebAPI_SQL.Hubs;
 using CMS_WebAPI_SQL.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<StudentContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("CMS_SQL_Connection")));
 
+builder.Services.AddDbContext<AdminContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("CMS_SQL_Connection")));
+
 builder.Services.AddTransient<IEduHubService, EduHubService>();
+builder.Services.AddTransient<IAdminService, AdminService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
